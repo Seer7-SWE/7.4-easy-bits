@@ -1,56 +1,39 @@
 
 import './App.css'
-import { useRecoilValue } from 'recoil'
-import { messagingAtom, networkAtom, notificationsAtom } from './atoms'
-
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
+import { jobsAtom, messagingAtom, networkAtom, notificationsAtom, totalNotificationSelector } from './atoms'
+import { useMemo } from 'react'
+//RecoilRoot
 
 function App() {
   return <RecoilRoot>
-    <MainApp></MainApp>
+    <MainApp />
   </RecoilRoot>
 }
 
 function MainApp() {
-// // const networkNotificationCount = useRecoilValue(networkAtom)
-// // const jobsAtomCount = useRecoilValue(jobsAtom);
-// // const notificationsAtomCount = useRecoilValue(notificationsAtom)
-// // const [MessagingAtomCount, setMessagingAtomCount] = useRecoilState(messagingAtom);
+  const networkNotificationCount = useRecoilValue(networkAtom)
+  const jobsAtomCount = useRecoilValue(jobsAtom);
+  const notificationsAtomCount = useRecoilValue(notificationsAtom)
+  const messagingAtomCount = useRecoilValue(messagingAtom)
+  const totalNotificationCount = useRecoilValue(totalNotificationSelector);
 
-// // useMemo
-// const totalNotificationCount = networkNotificationCount + jobsAtomCount + notificationsAtomCount + messagingAtomCount;
-
-const [notificationsCounter, setNotificationCounts] = useState({});
-
-useEffect(() => {
-  //fetch
-  axios.get("https://sum-server.100devs.com/notifications")
-    .then(res => {
-      setNetworkCount(res.data)
-    })
-}, [])
+  // const totalNotificationCount = useMemo(() => {
+  //   return networkNotificationCount + jobsAtomCount + notificationsAtomCount + messagingAtomCount;
+  // }, [networkNotificationCount, jobsAtomCount, notificationsAtomCount, messagingAtomCount]) 
 
   return (
     <>
-      <button>Home</button> 
-
+      <button>Home</button>
+      
       <button>My network ({networkNotificationCount >= 100 ? "99+" : networkNotificationCount})</button>
       <button>Jobs {jobsAtomCount}</button>
-      <button>Messaging ({MessagingAtomCount})</button>
-      <button>Notifications ({notificationsAtomCount})</button>  
-      
-      <button onClick={() => {
-        setMessagingAtomCount(messagingAtomCount + 1);
-      }}>Me</button> 
+      <button>Messaging ({messagingAtomCount})</button>
+      <button>Notifications ({notificationsAtomCount})</button>
 
+      <button>Me ({totalNotificationCount})</button>
     </>
   )
-}
-
-function ButtonUpdater() {
-  const setMessagingAtomCount = useSetRecoilState(messagingAtom);
-  return <button onClick={() => {
-    setMessagingAtomCount(c => c + 1);
-  }}>Me</button>
 }
 
 export default App
