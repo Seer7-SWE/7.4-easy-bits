@@ -2,7 +2,7 @@
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 
 // Import atom and selector
-import { notifications, totalNotificationSelector } from "./atoms.js";
+import { notificationsAtom, totalNotificationSelector } from "./atoms.js";
 
 // Main app component
 function App() {
