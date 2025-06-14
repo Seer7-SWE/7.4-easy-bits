@@ -16,7 +16,7 @@ function App() {
 
 // MainApp component
 function MainApp() {
-    const [networkCount, setNetworkCount] = useRecoilState(notifications);
+    const [networkCount, setNetworkCount] = useRecoilState(notificationsAtom);
     const totalNotificationCount = useRecoilValue(totalNotificationSelector);
 
     return (
@@ -25,7 +25,7 @@ function MainApp() {
             <button>My network ({networkCount.networks >= 100 ? "99+" : networkCount.networks})</button>
             <button>Jobs {networkCount.jobs}</button>
             <button>Messaging ({networkCount.messaging})</button>
-            <button>Notifications ({networkCount.notifications})</button>
+            <button>Notifications ({networkCount.notificationsAtom})</button>
             <button>Me ({totalNotificationCount})</button>
         </>
     );
